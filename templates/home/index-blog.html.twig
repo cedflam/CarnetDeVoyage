@@ -60,7 +60,7 @@
                             <div class="cbp-caption-activeWrap">
                                 <div class="cbp-l-caption-alignCenter">
                                     <div class="cbp-l-caption-body">
-                                        <a href="{{ path('article', {'id': article.id}) }}" class="btn blog-btn cbp-l-caption-buttonLeft">LIRE
+                                        <a href="{{ path('article_show', {'id': article.id}) }}" class="btn blog-btn cbp-l-caption-buttonLeft">LIRE
                                             L'ARTICLE</a>
                                     </div>
                                 </div>
@@ -68,9 +68,9 @@
                         </div>
                         <div class="portfolio-text">
                             <p class="portfolio-vert text-grey">{{ article.departement }}</p>
-                            <a class="text-black" href="{{ path('article', {'id': article.id}) }}">
+                            <a class="text-black" href="{{ path('article_show', {'id': article.id}) }}">
                                 <h2 class="heading ml-3">
-                                    {{ article.ville }}<br>
+                                    {{ article.ville }} <a href="{{ path('article_edit', {'id': article.id}) }}"> <i class="fas fa-pen"></i> </a><br>
                                     {% if article.noteCamping == 1 %}
                                         <i class="las la-star rating-star"></i>
                                     {% elseif article.noteCamping == 2 %}

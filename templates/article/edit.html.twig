@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un Article{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <!--HEADER IMAGE-->
+        <section id="bg-blog-detail-img" class="bg-blog-detail-img">
+            <div class="overlay"></div>
+        </section>
+        <h1>Editer un Article</h1>
+
+        {{ include('article/_form.html.twig', {'button_label': 'Modifier'}) }}
+        {{ include('article/_delete_form.html.twig') }}
+
+    </div>
+{% endblock %}
