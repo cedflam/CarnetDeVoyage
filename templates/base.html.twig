@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{  asset('/css/jquery.fancybox.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/jquery.fancybox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Style Sheet -->
     <link rel="stylesheet" href="{{ asset('/vendor/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
@@ -53,12 +54,15 @@
 {% include 'partials/footer.html.twig' %}
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% block javascripts %} {% endblock %}
 <!-- JavaScript -->
 <script src="{{ asset('/vendor/js/bundle.min.js') }}"></script>
 <!-- Plugin Js -->
 <script src="{{ asset('/vendor/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('/vendor/js/jquery.cubeportfolio.min.js') }}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 <!-- custom script -->
 <script src="{{ asset('/js/jquery.fancybox.js') }}"></script>
 <script src="{{ asset('/js/jquery.fancybox.min.js') }}"></script>
@@ -67,5 +71,6 @@
 <script src="{{ asset('/vendor/js/parallaxie.min.js') }}"></script>
 <script src="{{ asset('/js/script.js') }}"></script>
 <script src="{{ asset('js/browse.js') }}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

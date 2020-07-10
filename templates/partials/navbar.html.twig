@@ -1,3 +1,5 @@
+{% if app.user %}
+
 <nav id="my-nav" class="navbar navbar-expand-lg navbar-light rounded-bar sidemenu-nav">
 
     <div class="logo width-logo">
@@ -13,7 +15,8 @@
 
 <div class="outer-wrapper">
 
-    <div class="overlay1">
+
+        <div class="overlay1">
 
         <a class="close-outerwindow"><i class="las la-times"></i></a>
 
@@ -25,10 +28,13 @@
                     <div class="logo-img text-center">
                         <a href="{{ path('home') }}"><img src="{{ asset('/img/logo.png') }}" alt="Logo Img"></a>
                     </div>
+
                     <ul class="navbar-nav mt-5 text-center">
                         <li class="nav-item"><a class="nav-link active" href="{{ path('home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('article_new') }}">Nouvelle virée</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('article_index') }}">Liste des articles</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ path('account_logout') }}">Déconnexion</a></li>
+
 
                     </ul>
                     <ul class="footer_ul text-center mt-3">
@@ -40,5 +46,9 @@
                 </div>
             </div>
         </nav>
+
     </div>
+
 </div>
+
+{% endif %}

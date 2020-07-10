@@ -45,69 +45,75 @@
             </div>
         </div>
     </section>
+    {% if app.user %}
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <div id="js-grid-masonry-projects" class="cbp cbp-l-grid-masonry-projects">
 
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <div id="js-grid-masonry-projects" class="cbp cbp-l-grid-masonry-projects">
+                    {% for article in articles %}
+                        <!--Articles-->
+                        <div class="cbp-item">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    {% for image in article.images | slice(0,1) %}
+                                        <img src="{{ asset('/uploads/' ~ image.image) }} " alt="Image de présentation"
+                                             style="width: 350px">
+                                    {% endfor %}
+                                </div>
 
-                {% for article in articles %}
-                    <!--Articles-->
-                    <div class="cbp-item">
-                        <div class="cbp-caption">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="{{ asset('img/portfolioS8.jpg') }} " alt="">
-                            </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignCenter">
-                                    <div class="cbp-l-caption-body">
-                                        <a href="{{ path('article_show', {'id': article.id}) }}" class="btn blog-btn cbp-l-caption-buttonLeft">LIRE
-                                            L'ARTICLE</a>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <a href="{{ path('article_show', {'id': article.id}) }}"
+                                               class="btn blog-btn cbp-l-caption-buttonLeft">LIRE
+                                                L'ARTICLE</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="portfolio-text">
+                                <p class="portfolio-vert text-grey">{{ article.departement }}</p>
+                                <a class="text-black" href="{{ path('article_show', {'id': article.id}) }}">
+                                    <h2 class="heading ml-3">
+                                        {{ article.ville }} <a href="{{ path('article_edit', {'id': article.id}) }}"> <i
+                                                    class="fas fa-pen"></i> </a><br>
+                                        {% if article.noteCamping == 1 %}
+                                            <i class="las la-star rating-star"></i>
+                                        {% elseif article.noteCamping == 2 %}
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                        {% elseif article.noteCamping == 3 %}
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                        {% elseif article.noteCamping == 4 %}
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                        {% elseif article.noteCamping == 5 %}
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                            <i class="las la-star rating-star"></i>
+                                        {% endif %}
+                                    </h2>
+
+                                </a>
+                                <p class="date text-grey">{{ article.date | date('d/m/Y') }}</p>
+                                <div class="horizontal-line"></div>
+                                <p class="sub-heading text-grey mt-3">{{ article.intro }}
+                            </div>
                         </div>
-                        <div class="portfolio-text">
-                            <p class="portfolio-vert text-grey">{{ article.departement }}</p>
-                            <a class="text-black" href="{{ path('article_show', {'id': article.id}) }}">
-                                <h2 class="heading ml-3">
-                                    {{ article.ville }} <a href="{{ path('article_edit', {'id': article.id}) }}"> <i class="fas fa-pen"></i> </a><br>
-                                    {% if article.noteCamping == 1 %}
-                                        <i class="las la-star rating-star"></i>
-                                    {% elseif article.noteCamping == 2 %}
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                    {% elseif article.noteCamping == 3 %}
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                    {% elseif article.noteCamping == 4 %}
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                    {% elseif article.noteCamping == 5 %}
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                        <i class="las la-star rating-star"></i>
-                                    {% endif %}
-                                </h2>
 
-                            </a>
-                            <p class="date text-grey">{{ article.date | date('d/m/Y') }}</p>
-                            <div class="horizontal-line"></div>
-                            <p class="sub-heading text-grey mt-3">{{ article.intro }}
-                        </div>
-                    </div>
+                    {% endfor %}
 
-                {% endfor %}
+                    <!-- Fin de l'article -->
 
-                <!-- Fin de l'article -->
-
+                </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    {% endif %}
 
 {% endblock %}

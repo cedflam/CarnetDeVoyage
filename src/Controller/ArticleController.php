@@ -7,31 +7,42 @@ use App\Entity\Image;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/article")
  */
 class ArticleController extends AbstractController
 {
+
     /**
+     * Permet d'afficher la page index avec la liste des articles
+     *
      * @Route("/", name="article_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
+     *
      * @param ArticleRepository $articleRepository
      * @return Response
      */
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findAll(),
+            'articles' => $articleRepository->findBy([], ['date' => 'DESC'] ),
         ]);
     }
 
     /**
+     * Permet de créer un article
+     *
      * @Route("/new", name="article_new", methods={"GET","POST"})
+     *
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return Response
      */
@@ -40,7 +51,7 @@ class ArticleController extends AbstractController
         /**
          * Pour créer un upload multiple il faut une entité Image(pour ensuite lier l'image à l'article) et une entité Article
          * 1) Modifier le formulaire Article pour ajouter le champs d'upload multiple (voir ArticleType.php)
-         * 2) Modifier le fichier config/services.yaml (voir le fichier ligne "parameters")
+         * 2) Modifier le fichier config/services.yaml pour désigner le dossier de stockage (voir le fichier ligne "parameters")
          * 3) Penser à mettre "cascade={"persist"}" dans la classe Article $images pour la persistance des images
          */
         $article = new Article();
@@ -83,7 +94,11 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * Permet d'afficher un article
+     *
      * @Route("/{id}", name="article_show", methods={"GET"})
+     *
+     * @IsGranted("ROLE_USER")
      * @param Article $article
      * @return Response
      */
@@ -95,7 +110,11 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * Permet d'éditer un article
+     *
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     *
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param Article $article
      * @return Response
@@ -129,7 +148,7 @@ class ArticleController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('article_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('article/edit.html.twig', [
@@ -139,7 +158,11 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * Permet de supprimer un article
+     *
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     *
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param Article $article
      * @return Response
@@ -157,27 +180,35 @@ class ArticleController extends AbstractController
 
     /**
      * Permet de supprimer des images
+     *
      * @Route("/delete/image/{id}", name="image_delete", methods={"DELETE"})
+     *
+     * @IsGranted("ROLE_USER")
      * @param Image $image
-     * @param Request $request
      * @param EntityManagerInterface $manager
-     * @return JsonResponse
+     * @return Response
      */
-    public function deleteImage(Image $image, Request $request, EntityManagerInterface $manager)
+    public function deleteImage(Image $image, EntityManagerInterface $manager)
     {
-        $data = json_decode($request->getContent(), true);
-        //Je vérifie si le token est valide
-        if ($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
-            //Je récupère le nom de l'image
-            $nom = $image->getImage();
-            //Je supprime l'image de la bdd
-            unlink($this->getParameter('images_directory'). '.' .$nom);
-            $manager->remove($image);
-            $manager->flush();
-            //Réponse json
-            return new JsonResponse(['success' => 1]);
-        }else{
-            return new JsonResponse(['error' => 'Token invalid'], 400);
-        }
+        /**
+         * Je gère la suppression de l'image dans le dossier "uploads"
+         */
+        //Je récupère le nom de l'image
+        $filename = $image->getImage();
+        // Je crée une instance de kla classe fileSystem
+        $fileSystem = new Filesystem();
+        //Je supprime l'image du dossier
+        $projectDir = $this->getParameter('kernel.project_dir');
+        $fileSystem->remove($projectDir.'/public/uploads/'.$filename);
+
+        /**
+         * Je gère la suppression en bdd
+         */
+        $manager->remove($image);
+        $manager->flush();
+        return new Response('deleted', Response::HTTP_OK);
+
+
+
     }
 }

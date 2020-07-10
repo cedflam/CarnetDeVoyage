@@ -10,8 +10,26 @@
         </section>
         <h1>Editer un Article</h1>
 
-        {{ include('article/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+        {{ include('article/_form.html.twig', {'button_label': 'Valider'}) }}
         {{ include('article/_delete_form.html.twig') }}
 
+        {% if app.request.attributes.get('_route') == 'article_edit' %}
+            <h2>Images</h2>
+            <div class="row">
+                {% for image in article.images %}
+                    <div class="col-2 mb-3 image{{ image.id }}">
+                        <img src="{{ asset('/uploads/' ~ image.image) }}" alt="Image" width="100">
+                        <a class="align-top deleteImage" href="{{ path('image_delete', {'id': image.id }) }}" data-target="{{ image.id }}"><i class="fas fa-times"></i></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/imagesDelete.js') }}"></script>
+    <script src="{{ asset('js/toast.js') }}" ></script>
 {% endblock %}

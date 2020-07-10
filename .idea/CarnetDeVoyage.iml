@@ -122,5 +122,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bs-custom-file-input" level="application" />
+    <orderEntry type="library" name="axios" level="application" />
+    <orderEntry type="library" name="jquery-3.5.1.slim" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="toastify-js" level="application" />
   </component>
 </module>

@@ -4,10 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <!--HEADER IMAGE-->
-        <section id="bg-blog-detail-img" class="bg-blog-detail-img">
-            <div class="overlay"></div>
-        </section>
+
         <h1 class="mt-5">Article index</h1>
 
         <table class="table">
@@ -16,11 +13,8 @@
                 <th>Id</th>
                 <th>Date</th>
                 <th>Ville</th>
-                <th>Departement</th>
-                <th>Titre</th>
-                <th>Contenu</th>
-                <th>Intro</th>
-                <th>NoteCamping</th>
+                <th>Département</th>
+                <th>Note Séjour</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -31,12 +25,9 @@
                     <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
                     <td>{{ article.ville }}</td>
                     <td>{{ article.departement }}</td>
-                    <td>{{ article.titre }}</td>
-                    <td>{{ article.contenu }}</td>
-                    <td>{{ article.intro }}</td>
                     <td>{{ article.noteCamping }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary mb-2" href="{{ path('article_show', {'id': article.id}) }}"><i class="fas fa-eye"></i></a>
+                        <a class="btn btn-sm btn-primary" href="{{ path('article_show', {'id': article.id}) }}"><i class="fas fa-eye"></i></a>
                         <a class="btn btn-sm btn-primary" href="{{ path('article_edit', {'id': article.id}) }}"><i class="fas fa-pen"></i></a>
                     </td>
                 </tr>
