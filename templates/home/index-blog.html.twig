@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}HomePage{% endblock %}
+{% block title %}Carnet de voyage{% endblock %}
 
 {% block body %}
     <section id="banner-img" class="banner-img bg-banner-img">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <p class="sub-heading text-grey">Nous aimons découvrir de nouveaux endroits et ce blog est le reflet
+                    <p class="sub-heading text-grey text-justify">Nous aimons découvrir de nouveaux endroits et ce blog est le reflet
                         de nos expériences ou nous partageons nos virées
                         le temps d'un week end, nos vacances, nos séjours.
                         <br><br>
@@ -103,7 +103,7 @@
                                 </a>
                                 <p class="date text-grey">{{ article.date | date('d/m/Y') }}</p>
                                 <div class="horizontal-line"></div>
-                                <p class="sub-heading text-grey mt-3">{{ article.intro }}
+                                <p class="sub-heading text-grey mt-3 text-justify">{{ article.intro }}
                             </div>
                         </div>
 
