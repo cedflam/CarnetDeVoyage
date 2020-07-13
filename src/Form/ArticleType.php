@@ -37,7 +37,7 @@ class ArticleType extends AbstractType
                 ]
             ])
             ->add('intro', TextType::class, [
-                'label' => "Introduduction (pour la page de présentation)"
+                'label' => "Introduction (pour la page de présentation)"
             ])
             ->add('noteCamping', NumberType::class, [
                 'label' => "Note séjour"
@@ -46,7 +46,8 @@ class ArticleType extends AbstractType
                 'label' => "Ajouter des photos ",
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+
             ])
         ;
     }
